@@ -1,1 +1,130 @@
 /* Add your CSS here */
+
+/* Base page styles */
+html, body {
+    font-family: 'Nunito', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make the logo resize with the page width */
+img.logo {
+  width: 10%;            /* allow the image to fill available space */
+  max-width: 160px;       /* but never grow larger than 160px */
+  height: auto;           /* preserve aspect ratio */
+  display: block;         /* allow margin auto to center it */
+  margin: 0.75rem 0;   /* space around the logo and center horizontally */
+  background-color: #0068b5; /* subtle dark background so white parts are visible */
+  padding: 6px;           /* inner spacing inside the logo background */
+  border-radius: 6px;     /* rounded corners for a softer look */
+}
+
+/* Header layout and spacing */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #0068b5; /* blue header background */
+  color: white;
+  padding: 0.1rem 0 2rem 0;        /* space inside the header */
+  text-align: center;
+}
+
+.header {
+  max-width: 900px;          /* keep the header content from stretching too wide */
+  margin: 0 auto;            /* center the header content */
+}
+
+/* Sub-body content flows directly after the header in a horizontal scroll row */
+.sub-body {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 1.5rem 1rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  flex: 1;
+}
+
+.sub-body div {
+  min-width: 220px;
+  max-width: 250px;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: #f7fbff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sub-body div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
+.sub-body div h2,
+.sub-body div h3 {
+  margin: 0;
+}
+
+.sub-body div h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.35rem;
+  color: #004a7f;
+}
+
+.sub-body div h3 {
+  font-size: 0.98rem;
+  margin-bottom: 0.8rem;
+  color: #0f3d6a;
+}
+
+.sub-body div p {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  margin: 0;
+}
+
+.sub-body div:hover p {
+  opacity: 1;
+  visibility: visible;
+  margin-top: 0.5rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f1f6fb;
+  color: #1f3f61;
+  margin-top: auto;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Simple responsive text spacing */
+.title {
+  margin: 1rem 0 0.5rem;
+}
+
+.title-page {
+  max-width: 70ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+
