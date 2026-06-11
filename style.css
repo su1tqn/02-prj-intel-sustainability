@@ -8,70 +8,119 @@ html, body {
     min-height: 100vh;
 }
 
+/* Use border-box sizing to avoid unexpected overflow */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent page-level horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+}
+
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5fbff;
+  background-image: linear-gradient(
+    180deg,
+    #f7fcff 0%,
+    #eaf6ff 40%,
+    #d9eeff 100%
+  );
+  color: #0f2b44;
+  justify-content: space-between;
 }
 
-/* Make the logo resize with the page width */
+.bg-image {
+  display: none; 
+}
+
 img.logo {
-  width: 10%;            /* allow the image to fill available space */
-  max-width: 160px;       /* but never grow larger than 160px */
-  height: auto;           /* preserve aspect ratio */
-  display: block;         /* allow margin auto to center it */
-  margin: 0.75rem 0;   /* space around the logo and center horizontally */
-  background-color: #0068b5; /* subtle dark background so white parts are visible */
-  padding: 6px;           /* inner spacing inside the logo background */
-  border-radius: 6px;     /* rounded corners for a softer look */
+  width: 10%;
+  max-width: 160px;
+  height: auto;           
+  display: block;         
+  margin: 0.75rem 0;
+  background-color: #0068b5; 
+  padding: 6px;           
+  border-radius: 6px;     
 }
 
-/* Header layout and spacing */
+
 header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: #0068b5; /* blue header background */
+  background-color: #0068b5; 
   color: white;
-  padding: 0.1rem 0 2rem 0;        /* space inside the header */
-  text-align: center;
+  padding: 2rem 1rem 2.25rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.18);
 }
 
 .header {
-  max-width: 900px;          /* keep the header content from stretching too wide */
-  margin: 0 auto;            /* center the header content */
+  max-width: 900px;          
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-/* Sub-body content flows directly after the header in a horizontal scroll row */
-.sub-body {
+
+ .sub-body {
   display: flex;
   flex-direction: row;
-  gap: 20px;
-  padding: 1.5rem 1rem 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-  flex-wrap: nowrap;
+  gap: 1.25rem;
+  padding: 2rem 1.5rem 3rem;
+  max-width: 100%;
+  margin: 2rem auto;
+  flex-wrap: wrap;
   overflow-x: auto;
-  flex: 1;
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
+  scroll-snap-type: x mandatory;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.sub-body div {
-  min-width: 220px;
-  max-width: 250px;
-  padding: 1rem;
+ .sub-body div {
+  flex: 0 0 280px;
+  width: 280px;
+  min-height: 320px;
+  padding: inherit;
   border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background-color: #f7fbff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(14, 54, 99, 0.14);
+  background-color: rgba(247, 251, 255, 0.98);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transform: translateY(0) scale(1);
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  will-change: transform;
 }
 
 .sub-body div:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+  background-color: rgb(247, 254, 255);
+  border-color: rgba(0, 89, 156, 0.2);
+  z-index: 5;
 }
 
 .sub-body div h2,
@@ -91,40 +140,181 @@ header {
   color: #0f3d6a;
 }
 
+.sub-body div {
+  position: relative;
+}
+
 .sub-body div p {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease;
+  transform: translateY(14px) scale(0.98);
+  transition: opacity 0.28s ease, transform 0.28s ease, background 0.28s ease;
   margin: 0;
+  padding: 1rem;
+  border-radius: 18px;
+  max-height: 0;
+  overflow: hidden;
+  background: rgba(15, 43, 68, 0.92);
+  color: white;
+  line-height: 1.5;
+  text-align: left;
 }
 
-.sub-body div:hover p {
+.sub-body div:hover p,
+.sub-body div:focus-within p {
   opacity: 1;
   visibility: visible;
-  margin-top: 0.5rem;
+  transform: translateY(0) scale(1.02);
+  max-height: 320px;
+  color: white;
 }
 
-footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #f1f6fb;
-  color: #1f3f61;
-  margin-top: auto;
+/* Card image inserted above headings */
+.card-img {
+  display: block;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 0.6rem;
+  transition: transform 0.35s ease;
+}
+
+.sub-body div:hover .card-img {
+  transform: none;
 }
 
 footer p {
   margin: 0;
 }
 
-/* Simple responsive text spacing */
 .title {
+  font-family: "Segoe UI", "Inter", "Roboto", Arial, sans-serif;
+  text-align: center;
   margin: 1rem 0 0.5rem;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
 }
 
 .title-page {
+  font-family: "Segoe UI", "Inter", "Roboto", Arial, sans-serif;
+  text-align: center;
   max-width: 70ch;
   margin: 0 auto;
   line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.05rem;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transform-origin: center bottom;
+  animation: wave-pop 1s ease-out 0.2s forwards;
+}
+
+.footer-text {
+  text-align: center;
+}
+
+@media (max-width: 840px) {
+  header {
+    padding: 1.5rem 1rem 2rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sub-body {
+    flex-direction: column;
+    gap: 1rem;
+    overflow-x: visible;
+  }
+
+  .sub-body div {
+    width: 100%;
+    max-width: 640px;
+    min-height: auto;
+    margin: 0 auto;
+  }
+  .sub-body div:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+  background-color: rgb(247, 254, 255);
+  border-color: rgba(0, 89, 156, 0.2);
+  z-index: 5; 
+}
+}
+
+@media (max-width: 1024px) {
+  .sub-body {
+    margin: 2rem 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  img.logo {
+    max-width: 120px;
+    width: auto;
+  }
+
+  .title {
+    text-align: center;
+  }
+}
+
+/* Ensure card copy is visible on touch devices */
+@keyframes wave-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Enable horizontal scrolling for viewports 600px and wider */
+@media (min-width: 600px) {
+  .sub-body {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-gutter: stable;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    justify-content: flex-start;
+    margin: 2rem 2rem;
+  }
+
+  .sub-body::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  .sub-body::-webkit-scrollbar-thumb {
+    background: rgba(11,37,69,0.12);
+    border-radius: 10px;
+  }
+}
+
+@media (min-width: 900px) {
+  .sub-body div {
+    flex: 0 0 300px;
+    width: 300px;
+    min-height: 340px;
+  }
 }
 
 
